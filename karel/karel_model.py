@@ -106,11 +106,8 @@ class KarelModel:
     def get_num_beepers(self, row, col):
         return self.beepers.get_num_beepers(row, col)
 
-    def has_top_wall(self, row, col):
-        return self.walls.top_wall(row, col)
-
-    def has_right_wall(self, row, col):
-        return self.walls.right_wall(row, col)
+    def has_wall(self, row, col):
+        return self.walls.get_wall(row, col)
 
     def beepers_present(self):
         return self.beepers.beeper_present(self.karel_row, self.karel_col)
@@ -145,8 +142,5 @@ class KarelModel:
         for beeper in world["beepers"]:
             self.beepers.put_beeper(beeper[0], beeper[1])
 
-        for top_wall in world["top_walls"]:
-            self.walls.add_top_wall(top_wall[0], top_wall[1])
-
-        for right_wall in world["right_walls"]:
-            self.walls.add_right_wall(right_wall[0], right_wall[1])
+        for wall in world["walls"]:
+            self.walls.add_wall(wall[0], wall[1])
