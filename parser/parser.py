@@ -25,7 +25,7 @@ class Parser:
         token = self.next_token()
         while self.takes_precedence(token, prec):
             prop = self.infix_properties[token]
-            exp = prop.action(self, token, exp)
+            exp = prop["action"](self, token, exp)
             token = self.next_token()
         self.save_token(token)
         return exp
@@ -36,7 +36,7 @@ class Parser:
         if token_type == TokenScanner.EOF:
             raise Exception("Unexpected end of line")
         elif token_type in [TokenScanner.WORD, TokenScanner.OPERATOR]:
-            prop = self.prefix_properties[token]
+            prop = self.prefix_properties.get(token, None)
             if prop:
                 return prop.action(self, token)
         return token
@@ -66,7 +66,7 @@ class Parser:
     def takes_precedence(self, token, prec):
         token_type = TokenScanner.get_token_type(token)
         if token_type in [TokenScanner.WORD, TokenScanner.OPERATOR]:
-            prop = self.infix_properties[token]
+            prop = self.infix_properties.get(token, None)
             if not prop:
                 return False
             new_prec = prop["prec"]

@@ -43,6 +43,9 @@ class Karel:
         self.karel_model.turn_left()
         log("turnLeft")
 
+    def frontIsClear(self):
+        return self.karel_model.frontIsClear()
+
     def load_world(self, text):
         self.karel_model.load_world(text)
 
