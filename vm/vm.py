@@ -66,9 +66,8 @@ class VM:
             return
         if self.cf.pc < len(self.cf.code):
             pc = self.cf.pc
+            self.cf.pc += 1
             self.cf.code[pc].execute(self)
-            if self.cf:
-                self.cf.pc += 1
         else:
             self.ret()
 
@@ -94,7 +93,7 @@ class PushIns:
         self.name = 'push_ins'
 
     def __str__(self):
-        return "push " + Parser.unparse(self.value)
+        return "push " + self.value
 
     def execute(self, vm):
         vm.push(self.value)
@@ -157,7 +156,7 @@ class JumpIns:
         if self.name in ["jumpt", "jumpf"]:
             cond = not not vm.pop() is (self.name is "jumpt")
         if cond:
-            vm.cf.pc = self.target - 1
+            vm.cf.pc = self.target
 
     def set_target(self, target):
         self.target = target

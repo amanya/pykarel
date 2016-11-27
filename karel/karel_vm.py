@@ -41,14 +41,14 @@ class KarelCall:
         self.name = "call"
         self.fn = fn
 
-    def __src__(self):
+    def __str__(self):
         return self.name + " " + self.fn
 
     @staticmethod
     def legal_fn(fn, user_fns):
-        if Karel.instructions[fn]:
+        if fn in Karel.instructions:
             return True
-        if Karel.predicates[fn]:
+        if fn in Karel.predicates:
             return True
         if fn in user_fns:
             return True
@@ -61,9 +61,9 @@ class KarelCall:
         code.append(KarelCall(fn))
 
     def execute(self, vm):
-        if Karel.instructions[self.fn]:
+        if self.fn in Karel.instructions:
             getattr(vm.karel, self.fn)()
-        elif Karel.predicates[self.fn]:
+        elif self.fn in Karel.predicates:
             predicate = getattr(vm.karel, self.fn)
             vm.push(predicate())
         else:
@@ -74,7 +74,7 @@ class KarelRepeat:
     def __init__(self):
         self.name = "repeat"
 
-    def __src__(self):
+    def __str__(self):
         return self.name
 
     def compile(self, vm, exp, code, fn_name):
@@ -101,7 +101,7 @@ class KarelWhile:
     def __init__(self):
         self.name = "while"
 
-    def __src__(self):
+    def __str__(self):
         return self.name
 
     def compile(self, vm, exp, code, fn_name):
@@ -119,7 +119,7 @@ class KarelIf:
     def __init__(self):
         self.name = "if"
 
-    def __src__(self):
+    def __str__(self):
         return self.name
 
     def compile(self, vm, exp, code, fn_name):
@@ -141,7 +141,7 @@ class KarelBlock:
     def __init__(self):
         self.name = "block"
 
-    def __src__(self):
+    def __str__(self):
         return self.name
 
     def compile(self, vm, exp, code, fn_name):
@@ -153,7 +153,7 @@ class KarelStmt:
     def __init__(self):
         self.name = "stmt"
 
-    def __src__(self):
+    def __str__(self):
         return self.name
 
     def compile(self, vm, exp, code, fn_name):
