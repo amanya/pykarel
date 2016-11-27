@@ -32,8 +32,6 @@ def repeat_statement(parser):
 
 
 class KarelParser(XParser):
-    statement_forms = {}
-
     def __init__(self):
         XParser.__init__(self)
         self.scanner.add_word_characters("_")
@@ -84,7 +82,7 @@ class KarelParser(XParser):
                 stmt = self.read_statement()
                 block.append(stmt)
             return block
-        prop = KarelParser.statement_forms.get(token, None)
+        prop = self.statement_forms.get(token, None)
         if prop:
             return prop(self)
         self.verify_token("(")

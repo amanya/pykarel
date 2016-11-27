@@ -39,6 +39,10 @@ class Karel:
         if self.karel_model.move():
             log("move")
 
+    def turnLeft(self):
+        self.karel_model.turn_left()
+        log("turnLeft")
+
     def load_world(self, text):
         self.karel_model.load_world(text)
 

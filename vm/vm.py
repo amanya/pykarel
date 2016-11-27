@@ -21,7 +21,7 @@ class VM:
         self.frame_stack = []
         self.cf = None
 
-    def compile(self, exp, code, fn_name):
+    def compile(self, exp, code, fn_name=""):
         if type(exp) is list:
             fn = exp[0]
             op = self.operators[fn]
@@ -75,7 +75,7 @@ class VM:
     def get(self, id):
         scope = self.cf.scope_chain
         while scope is not None:
-            value = scope.bindings[id]
+            value = scope.bindings.get(id, None)
             if value is not None:
                 return value
             scope = scope.link
@@ -91,6 +91,7 @@ class VM:
 class PushIns:
     def __init__(self, value):
         self.value = value
+        self.name = 'push_ins'
 
     def __str__(self):
         return "push " + Parser.unparse(self.value)
@@ -100,8 +101,11 @@ class PushIns:
 
 
 class PopIns:
+    def __init__(self, value):
+        self.name = 'pop_ins'
+
     def __str__(self):
-        return "push"
+        return "pop"
 
     def execute(self, vm):
         vm.pop()
@@ -109,6 +113,7 @@ class PopIns:
 
 class LoadIns:
     def __init__(self, variable):
+        self.name = 'load_ins'
         self.variable = variable
 
     def __str__(self):
@@ -120,6 +125,7 @@ class LoadIns:
 
 class StoreIns:
     def __init__(self, variable):
+        self.name = 'store_ins'
         self.variable = variable
 
     def __str__(self):
@@ -131,6 +137,7 @@ class StoreIns:
 
 class DupIns:
     def __str__(self):
+        self.name = 'dup_ins'
         return "dup"
 
     def execute(self, vm):
@@ -150,7 +157,7 @@ class JumpIns:
         if self.name in ["jumpt", "jumpf"]:
             cond = not not vm.pop() is (self.name is "jumpt")
         if cond:
-            vm.cf.pc = self.target
+            vm.cf.pc = self.target - 1
 
     def set_target(self, target):
         self.target = target

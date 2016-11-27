@@ -78,7 +78,7 @@ class KarelRepeat:
         return self.name
 
     def compile(self, vm, exp, code, fn_name):
-        temp = "$" + fn_name + vm.next_temp
+        temp = "$" + fn_name + str(vm.next_temp)
         vm.next_temp += 1
         jump1 = JumpIns("jumpf")
         jump2 = JumpIns("jump")
