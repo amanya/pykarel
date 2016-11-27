@@ -49,6 +49,9 @@ class Karel:
     def load_world(self, text):
         self.karel_model.load_world(text)
 
+    def dump_world(self):
+        return self.karel_model.dump_world()
+
 
 
 

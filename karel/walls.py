@@ -33,3 +33,11 @@ class Walls:
             return False
 
         return True
+
+    def dump_walls(self):
+        walls = []
+        for i in range(self.cols):
+            for j in range(self.rows):
+                if self.walls[i][j] == 1:
+                    walls.append([i, j])
+        return walls
