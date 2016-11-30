@@ -1,8 +1,13 @@
 import unittest
 
-from vm.xvm import XVM
+from pykarel.vm.vm import VM
+
 
 class TestXVM(unittest.TestCase):
     def test_run(self):
-        vm = XVM()
+        vm = VM()
         vm.run("1 == 2")
+
+
+if __name__ == '__main__':
+    unittest.main()
