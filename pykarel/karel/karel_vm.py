@@ -1,4 +1,3 @@
-from .karel import Karel
 from ..vm.vm import JumpIns, PushIns, StoreIns, LoadIns
 from ..vm.xvm import XVM
 
@@ -44,26 +43,25 @@ class KarelCall:
     def __str__(self):
         return self.name + " " + self.fn
 
-    @staticmethod
-    def legal_fn(fn, user_fns):
-        if fn in Karel.instructions:
+    def legal_fn(self, fn, vm):
+        if fn in vm.karel.instructions:
             return True
-        if fn in Karel.predicates:
+        if fn in vm.karel.predicates:
             return True
-        if fn in user_fns:
+        if fn in vm.user_fns:
             return True
         return False
 
     def compile(self, vm, exp, code, fn_name):
         fn = exp[1]
-        if not self.legal_fn(fn, vm.user_fn_names):
+        if not self.legal_fn(fn, vm):
             raise Exception('Undefined operator "{}"'.format(fn))
         code.append(KarelCall(fn))
 
     def execute(self, vm):
-        if self.fn in Karel.instructions:
+        if self.fn in vm.karel.instructions:
             getattr(vm.karel, self.fn)()
-        elif self.fn in Karel.predicates:
+        elif self.fn in vm.karel.predicates:
             predicate = getattr(vm.karel, self.fn)
             vm.push(predicate())
         else:
