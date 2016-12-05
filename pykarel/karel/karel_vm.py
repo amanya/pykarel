@@ -48,7 +48,7 @@ class KarelCall:
             return True
         if fn in vm.karel.predicates:
             return True
-        if fn in vm.user_fns:
+        if fn in vm.user_fn_names:
             return True
         return False
 
