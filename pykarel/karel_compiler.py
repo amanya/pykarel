@@ -42,25 +42,3 @@ class KarelCompiler:
             vm.step()
         return False
 
-if __name__ == '__main__':
-    from karel.karel import Karel
-    karel = Karel()
-    compiler = KarelCompiler(karel)
-    with open('world.json', 'r') as f:
-        karel.load_world(f.read())
-
-    code = """
-function main() {
-    move();
-}
-"""
-    compiler.compile(code)
-    compiler.execute_step()
-    print karel.karel_model.karel_col
-    print karel.karel_model.karel_row
-    compiler.execute_step()
-    print karel.karel_model.karel_col
-    print karel.karel_model.karel_row
-    compiler.execute_step()
-    print karel.karel_model.karel_col
-    print karel.karel_model.karel_row
