@@ -1,4 +1,4 @@
-from vm import *
+from .vm import *
 
 
 class XVM(VM):

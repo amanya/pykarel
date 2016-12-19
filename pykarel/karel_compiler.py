@@ -1,6 +1,6 @@
-from karel.karel_parser import KarelParser
-from karel.karel_vm import KarelVM
-from vm.vm import ReturnIns
+from .karel.karel_parser import KarelParser
+from .karel.karel_vm import KarelVM
+from .vm.vm import ReturnIns
 
 
 class KarelCompiler:

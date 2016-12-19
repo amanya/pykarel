@@ -1,6 +1,6 @@
 import unittest
 
-from pykarel.vm.vm import VM
+from .vm.vm import VM
 
 
 class TestXVM(unittest.TestCase):
