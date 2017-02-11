@@ -16,7 +16,17 @@ class Tray:
 
 class Trays:
     def __init__(self, rows, cols):
+        self.rows = rows
+        self.cols = cols
+
         self.trays = [[None for i in range(cols)] for j in range(rows)]
+
+    def dump(self):
+        for i in range(self.cols):
+            for j in range(self.rows):
+                if self.trays[i][j] != None:
+                    tray = self.trays[i][j]
+                    yield i, j, tray.capacity, tray.required, tray.num_beepers
 
     def add_tray(self, row, col, capacity, required, initial_beepers):
         self.trays[row][col] = Tray(capacity, required, initial_beepers)

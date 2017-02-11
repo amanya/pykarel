@@ -5,6 +5,12 @@ class Walls:
 
         self.walls = [[0 for i in range(cols)] for j in range(rows)]
 
+    def dump(self):
+        for i in range(self.cols):
+            for j in range(self.rows):
+                if self.walls[i][j] == 1:
+                    yield i, j
+
     def add_wall(self, row, col):
         self.walls[row][col] = 1
 
@@ -34,10 +40,4 @@ class Walls:
 
         return True
 
-    def dump_walls(self):
-        walls = []
-        for i in range(self.cols):
-            for j in range(self.rows):
-                if self.walls[i][j] == 1:
-                    walls.append([i, j])
-        return walls
+
